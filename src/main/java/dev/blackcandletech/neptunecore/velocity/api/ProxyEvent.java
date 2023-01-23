@@ -1,2 +1,3 @@
-package dev.blackcandletech.neptunecore.velocity.api;public interface ProxyEvent {
-}
+package dev.blackcandletech.neptunecore.velocity.api;
+
+public interface ProxyEvent { }

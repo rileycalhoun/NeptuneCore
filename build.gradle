@@ -1,19 +1,31 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'dev.blackcandletech'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 repositories {
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
+    // Velocity
+    compileOnly 'com.velocitypowered:velocity-api:3.1.1'
+    annotationProcessor 'com.velocitypowered:velocity-api:3.1.1'
 
-test {
-    useJUnitPlatform()
+    // Purpur
+
+    // Reflections
+    implementation 'org.reflections:reflections:0.10.2'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    // Snake YAML
+    compileOnly 'org.yaml:snakeyaml:1.32'
 }

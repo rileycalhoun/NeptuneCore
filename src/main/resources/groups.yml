@@ -1,0 +1,11 @@
+
+groups:
+  default:
+    options:
+      default: true
+    permissions:
+      - 'neptunecore.version'
+  staff:
+    # default will automatically
+    permissions:
+      - 'neptunecore.server'

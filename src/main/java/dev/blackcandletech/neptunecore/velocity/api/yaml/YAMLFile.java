@@ -1,4 +1,4 @@
-package dev.blackcandletech.neptunecore.velocity.api;
+package dev.blackcandletech.neptunecore.velocity.api.yaml;
 
 import dev.blackcandletech.neptunecore.velocity.VelocityCore;
 import org.yaml.snakeyaml.Yaml;
@@ -9,12 +9,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
 
-@SuppressWarnings({"ResultOfMethodCallIgnored", "unchecked"})
+@SuppressWarnings({"ResultOfMethodCallIgnored"})
 public class YAMLFile {
 
     private File file;
-    private Map<String, Object> data;
-    private final ArrayList<Map<String, Object>> configurationSections = new ArrayList<>();
+    private ConfigurationSection configuration;
 
     public YAMLFile (String fileName)
     {
@@ -51,18 +50,10 @@ public class YAMLFile {
         try
         {
             InputStream inputStream = new FileInputStream(file);
-            this.data = yaml.load(inputStream);
+            this.configuration = new ConfigurationSection(yaml.load(inputStream));
         } catch (FileNotFoundException e)
         {
             VelocityCore.shutdown(e.getMessage());
-        }
-
-        for(String key : data.keySet()) {
-            Object obj = data.get(key);
-            if(obj instanceof Map) {
-                Map<String, Object> section = getConfigurationSection(key);
-                this.configurationSections.add(section);
-            }
         }
     }
 
@@ -71,42 +62,8 @@ public class YAMLFile {
         return file;
     }
 
-    public Map<String, Object> getData()
-    {
-        return data;
-    }
-
-    public String getString(String path)
-    {
-        return (String) data.get(path);
-    }
-
-    public int getInteger(String path)
-    {
-        return (int) data.get(path);
-    }
-
-    public boolean getBoolean(String path)
-    {
-        return (boolean) data.get(path);
-    }
-
-    public float getFloat(String path)
-    {
-        return (float) data.get(path);
-    }
-
-    public double getDouble(String path)
-    {
-        return (double) data.get(path);
-    }
-
-    public Map<String, Object> getConfigurationSection(String path) {
-        return (Map<String, Object>) data.get(path);
-    }
-
-    public ArrayList<Map<String, Object>> getConfigurationSections() {
-        return configurationSections;
+    public ConfigurationSection getConfiguration() {
+        return configuration;
     }
 
 }
